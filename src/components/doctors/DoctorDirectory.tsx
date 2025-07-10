@@ -1,5 +1,5 @@
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,10 +15,13 @@ import {
   Filter,
   Stethoscope
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export const DoctorDirectory = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('all');
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const doctors = [
     {
@@ -127,6 +130,26 @@ export const DoctorDirectory = () => {
     const matchesSpecialty = selectedSpecialty === 'all' || doctor.specialty === selectedSpecialty;
     return matchesSearch && matchesSpecialty;
   });
+
+  const handleBookNow = (doctor: typeof doctors[0]) => {
+    // Store selected doctor in localStorage for the booking form
+    localStorage.setItem('selectedDoctor', JSON.stringify(doctor));
+    navigate('/book-appointment');
+    toast({
+      title: "Redirecting to Book Appointment",
+      description: `Selected ${doctor.name} for booking.`
+    });
+  };
+
+  const handleChat = (doctor: typeof doctors[0]) => {
+    // Store selected doctor for chat context
+    localStorage.setItem('chatDoctor', JSON.stringify(doctor));
+    navigate('/chat');
+    toast({
+      title: "Starting Chat",
+      description: `Opening chat with ${doctor.name}.`
+    });
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -237,11 +260,19 @@ export const DoctorDirectory = () => {
                       <span className="text-sm text-gray-600"> consultation</span>
                     </div>
                     <div className="flex space-x-2">
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleChat(doctor)}
+                      >
                         <MessageCircle className="h-4 w-4 mr-1" />
                         Chat
                       </Button>
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      <Button 
+                        size="sm" 
+                        className="bg-blue-600 hover:bg-blue-700"
+                        onClick={() => handleBookNow(doctor)}
+                      >
                         Book Now
                       </Button>
                     </div>

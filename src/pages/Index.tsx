@@ -9,6 +9,7 @@ import { DoctorDirectory } from '@/components/doctors/DoctorDirectory';
 import { Chat } from '@/components/communication/Chat';
 import { Blog } from '@/components/blog/Blog';
 import { Pharmacy } from '@/components/pharmacy/Pharmacy';
+import { BookAppointment } from '@/components/appointments/BookAppointment';
 import { Navbar } from '@/components/layout/Navbar';
 
 export interface User {
@@ -54,6 +55,7 @@ const Index = () => {
           <Route path="/chat" element={<Chat user={user} />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/book-appointment" element={<BookAppointment />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
