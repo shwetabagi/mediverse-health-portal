@@ -1,4 +1,4 @@
-
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -12,15 +12,22 @@ import {
   MessageCircle,
   Pill,
   TrendingUp,
-  AlertCircle
+  AlertCircle,
+  ArrowLeft
 } from 'lucide-react';
 import { User } from '@/pages/Index';
+import { BookAppointment } from '@/components/appointments/BookAppointment';
+import { StartConsultation } from '@/components/consultation/StartConsultation';
+import { ViewReports } from '@/components/reports/ViewReports';
+import { OrderMedicine } from '@/components/pharmacy/OrderMedicine';
 
 interface PatientDashboardProps {
   user: User;
 }
 
 export const PatientDashboard = ({ user }: PatientDashboardProps) => {
+  const [activeView, setActiveView] = useState<'dashboard' | 'appointment' | 'consultation' | 'reports' | 'medicine'>('dashboard');
+
   const upcomingAppointments = [
     { id: 1, doctor: 'Dr. Sarah Johnson', specialty: 'Cardiology', date: '2024-01-15', time: '10:00 AM', type: 'Video Call' },
     { id: 2, doctor: 'Dr. Michael Chen', specialty: 'General Medicine', date: '2024-01-18', time: '2:30 PM', type: 'In-Person' },
@@ -38,6 +45,26 @@ export const PatientDashboard = ({ user }: PatientDashboardProps) => {
     { label: 'Weight', value: '70 kg', status: 'stable', icon: TrendingUp },
   ];
 
+  if (activeView !== 'dashboard') {
+    return (
+      <div className="max-w-7xl mx-auto p-6 space-y-6">
+        <Button
+          onClick={() => setActiveView('dashboard')}
+          variant="outline"
+          className="mb-4"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Dashboard
+        </Button>
+        
+        {activeView === 'appointment' && <BookAppointment />}
+        {activeView === 'consultation' && <StartConsultation />}
+        {activeView === 'reports' && <ViewReports />}
+        {activeView === 'medicine' && <OrderMedicine />}
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Welcome Section */}
@@ -48,19 +75,31 @@ export const PatientDashboard = ({ user }: PatientDashboardProps) => {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Button className="h-20 flex flex-col items-center justify-center space-y-2 bg-green-600 hover:bg-green-700">
+        <Button 
+          onClick={() => setActiveView('appointment')}
+          className="h-20 flex flex-col items-center justify-center space-y-2 bg-green-600 hover:bg-green-700"
+        >
           <Calendar className="h-6 w-6" />
           <span>Book Appointment</span>
         </Button>
-        <Button className="h-20 flex flex-col items-center justify-center space-y-2 bg-blue-600 hover:bg-blue-700">
+        <Button 
+          onClick={() => setActiveView('consultation')}
+          className="h-20 flex flex-col items-center justify-center space-y-2 bg-blue-600 hover:bg-blue-700"
+        >
           <MessageCircle className="h-6 w-6" />
           <span>Start Consultation</span>
         </Button>
-        <Button className="h-20 flex flex-col items-center justify-center space-y-2 bg-purple-600 hover:bg-purple-700">
+        <Button 
+          onClick={() => setActiveView('reports')}
+          className="h-20 flex flex-col items-center justify-center space-y-2 bg-purple-600 hover:bg-purple-700"
+        >
           <FileText className="h-6 w-6" />
           <span>View Reports</span>
         </Button>
-        <Button className="h-20 flex flex-col items-center justify-center space-y-2 bg-orange-600 hover:bg-orange-700">
+        <Button 
+          onClick={() => setActiveView('medicine')}
+          className="h-20 flex flex-col items-center justify-center space-y-2 bg-orange-600 hover:bg-orange-700"
+        >
           <Pill className="h-6 w-6" />
           <span>Order Medicine</span>
         </Button>
