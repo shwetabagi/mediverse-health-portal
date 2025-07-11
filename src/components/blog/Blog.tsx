@@ -1,147 +1,145 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Search, 
-  Clock, 
-  User, 
-  Heart, 
-  Share2, 
-  BookOpen,
-  TrendingUp,
-  Eye,
-  Filter
-} from 'lucide-react';
+import { Search, Filter, Heart, BookOpen, TrendingUp } from 'lucide-react';
+import { BlogPost } from './BlogPost';
 
 export const Blog = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const articles = [
+  const blogPosts = [
     {
-      id: 1,
-      title: '10 Heart-Healthy Foods to Include in Your Diet',
-      excerpt: 'Discover the best foods for cardiovascular health and learn how to incorporate them into your daily meals for a stronger heart.',
-      content: 'Heart disease remains one of the leading causes of death worldwide...',
+      id: '1',
+      title: '10 Essential Tips for Heart Health',
+      excerpt: 'Learn about the most important steps you can take to maintain a healthy heart and prevent cardiovascular disease.',
+      content: `Learn about the most important steps you can take to maintain a healthy heart and prevent cardiovascular disease. Regular exercise is crucial for heart health - aim for at least 150 minutes of moderate-intensity aerobic activity per week. This can include brisk walking, swimming, cycling, or dancing.
+
+Maintain a balanced diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats. Limit sodium intake to less than 2,300mg per day, and avoid trans fats and excessive saturated fats. Include omega-3 rich foods like fish, walnuts, and flaxseeds.
+
+Monitor your blood pressure regularly and keep it under control. High blood pressure is often called the "silent killer" because it typically has no symptoms but can lead to serious complications.
+
+Manage stress through relaxation techniques, meditation, yoga, or other activities you enjoy. Chronic stress can contribute to heart disease and other health problems.
+
+Get adequate sleep - 7-9 hours per night for most adults. Poor sleep quality and duration are linked to increased risk of heart disease.
+
+Don't smoke, and if you do, quit as soon as possible. Smoking damages blood vessels and significantly increases your risk of heart disease and stroke.
+
+Limit alcohol consumption to moderate levels - up to one drink per day for women and up to two drinks per day for men.`,
       author: 'Dr. Sarah Johnson',
-      category: 'Nutrition',
+      date: '2024-01-15',
       readTime: '5 min read',
-      publishedAt: '2024-01-12',
-      views: 1248,
-      likes: 89,
-      featured: true,
+      category: 'Heart Health',
       image: '/api/placeholder/400/200',
-      tags: ['heart health', 'nutrition', 'diet', 'prevention']
+      likes: 124,
+      isLiked: false
     },
     {
-      id: 2,
-      title: 'Managing Stress: Simple Techniques for Better Mental Health',
-      excerpt: 'Learn effective stress management techniques that can improve your mental well-being and overall quality of life.',
-      content: 'In today\'s fast-paced world, stress has become an inevitable part...',
+      id: '2',
+      title: 'Understanding Mental Health: Breaking the Stigma',
+      excerpt: 'Mental health is just as important as physical health. Explore ways to support your mental wellbeing and when to seek help.',
+      content: `Mental health is just as important as physical health. Explore ways to support your mental wellbeing and when to seek help. Mental health affects how we think, feel, and act. It influences how we handle stress, relate to others, and make decisions.
+
+Common mental health conditions include anxiety disorders, depression, bipolar disorder, and post-traumatic stress disorder (PTSD). These conditions are real, common, and treatable.
+
+Signs that you might need professional help include persistent sadness, excessive worry, extreme mood changes, withdrawal from friends and activities, significant changes in eating or sleeping patterns, and thoughts of self-harm.
+
+Ways to maintain good mental health include staying connected with family and friends, engaging in regular physical activity, getting enough sleep, eating a balanced diet, practicing relaxation techniques, and seeking help when needed.
+
+It's important to remember that seeking help for mental health issues is a sign of strength, not weakness. Just as you would see a doctor for a physical ailment, it's important to seek professional help for mental health concerns.
+
+Treatment options may include therapy, medication, lifestyle changes, or a combination of these approaches. Many people find that a combination of treatments works best for them.`,
       author: 'Dr. Michael Chen',
-      category: 'Mental Health',
+      date: '2024-01-12',
       readTime: '7 min read',
-      publishedAt: '2024-01-10',
-      views: 967,
-      likes: 156,
-      featured: false,
+      category: 'Mental Health',
       image: '/api/placeholder/400/200',
-      tags: ['stress', 'mental health', 'wellness', 'mindfulness']
+      likes: 89,
+      isLiked: true
     },
     {
-      id: 3,
-      title: 'The Importance of Regular Health Screenings',
-      excerpt: 'Understanding when and why you need health screenings can help detect problems early and maintain optimal health.',
-      content: 'Prevention is always better than cure, and regular health screenings...',
+      id: '3',
+      title: 'Nutrition Basics: Fueling Your Body Right',
+      excerpt: 'Discover the fundamentals of good nutrition and how to make healthier food choices for optimal wellness.',
+      content: `Discover the fundamentals of good nutrition and how to make healthier food choices for optimal wellness. Good nutrition is the foundation of good health and provides the energy and nutrients your body needs to function properly.
+
+The key components of a healthy diet include carbohydrates (your body's main source of energy), proteins (essential for building and repairing tissues), fats (important for brain function and hormone production), vitamins and minerals (support various body functions), and water (essential for all body processes).
+
+Focus on eating a variety of foods from all food groups. Fill half your plate with fruits and vegetables, choose whole grains over refined grains, include lean protein sources, and incorporate healthy fats like those found in nuts, seeds, and olive oil.
+
+Portion control is important. Use smaller plates and bowls, eat slowly and mindfully, and listen to your body's hunger and fullness cues.
+
+Stay hydrated by drinking plenty of water throughout the day. Limit sugary drinks, excessive caffeine, and alcohol.
+
+Plan and prepare meals in advance when possible. This helps you make healthier choices and avoid relying on processed or fast foods.
+
+Read nutrition labels to understand what you're eating. Pay attention to serving sizes, calories, and the amounts of sodium, sugar, and unhealthy fats.`,
       author: 'Dr. Emily Rodriguez',
-      category: 'Prevention',
+      date: '2024-01-10',
       readTime: '6 min read',
-      publishedAt: '2024-01-08',
-      views: 743,
-      likes: 92,
-      featured: true,
+      category: 'Nutrition',
       image: '/api/placeholder/400/200',
-      tags: ['screening', 'prevention', 'health check', 'early detection']
+      likes: 156,
+      isLiked: false
     },
     {
-      id: 4,
-      title: 'Exercise Guidelines for Different Age Groups',
-      excerpt: 'Discover age-appropriate exercise recommendations to stay fit and healthy throughout your life.',
-      content: 'Physical activity is crucial for maintaining health at every age...',
+      id: '4',
+      title: 'The Importance of Regular Exercise',
+      excerpt: 'Physical activity is crucial for maintaining good health. Learn about different types of exercise and their benefits.',
+      content: `Physical activity is crucial for maintaining good health. Learn about different types of exercise and their benefits. Regular exercise provides numerous physical and mental health benefits and is one of the most important things you can do for your health.
+
+Types of exercise include aerobic exercise (cardio), strength training, flexibility exercises, and balance training. A well-rounded fitness program should include all four types.
+
+Aerobic exercise strengthens your heart and lungs, improves circulation, helps control weight, and reduces the risk of chronic diseases. Examples include walking, running, swimming, cycling, and dancing.
+
+Strength training builds muscle mass, increases bone density, improves metabolism, and helps with daily activities. You can use weights, resistance bands, or your own body weight.
+
+Flexibility exercises help maintain range of motion in your joints and can reduce the risk of injury. Yoga and stretching are great examples.
+
+Balance training becomes increasingly important as we age to prevent falls and maintain independence.
+
+Start slowly if you're new to exercise. Begin with just 10-15 minutes of activity per day and gradually increase the duration and intensity.
+
+Find activities you enjoy - you're more likely to stick with exercise if it's fun. This could be dancing, hiking, playing sports, or working in the garden.
+
+Make exercise a social activity by working out with friends or family members.`,
       author: 'Dr. James Wilson',
-      category: 'Fitness',
+      date: '2024-01-08',
       readTime: '8 min read',
-      publishedAt: '2024-01-06',
-      views: 1156,
-      likes: 134,
-      featured: false,
+      category: 'Fitness',
       image: '/api/placeholder/400/200',
-      tags: ['exercise', 'fitness', 'age groups', 'physical activity']
-    },
-    {
-      id: 5,
-      title: 'Understanding Common Skin Conditions',
-      excerpt: 'Learn about prevalent skin conditions, their symptoms, and when to seek professional medical advice.',
-      content: 'Our skin is the body\'s largest organ and often reflects our overall health...',
-      author: 'Dr. Lisa Anderson',
-      category: 'Dermatology',
-      readTime: '9 min read',
-      publishedAt: '2024-01-04',
-      views: 892,
-      likes: 78,
-      featured: false,
-      image: '/api/placeholder/400/200',
-      tags: ['dermatology', 'skin care', 'conditions', 'treatment']
-    },
-    {
-      id: 6,
-      title: 'Sleep Hygiene: Tips for Better Rest',
-      excerpt: 'Improve your sleep quality with these evidence-based tips and create a better bedtime routine.',
-      content: 'Quality sleep is fundamental to good health and well-being...',
-      author: 'Dr. Robert Kim',
-      category: 'Sleep Health',
-      readTime: '6 min read',
-      publishedAt: '2024-01-02',
-      views: 1334,
-      likes: 198,
-      featured: true,
-      image: '/api/placeholder/400/200',
-      tags: ['sleep', 'insomnia', 'rest', 'health']
+      likes: 203,
+      isLiked: false
     }
   ];
 
-  const categories = ['all', 'Nutrition', 'Mental Health', 'Prevention', 'Fitness', 'Dermatology', 'Sleep Health'];
+  const categories = ['all', 'Heart Health', 'Mental Health', 'Nutrition', 'Fitness', 'Wellness'];
 
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
+  const filteredPosts = blogPosts.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         post.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const featuredArticles = filteredArticles.filter(article => article.featured);
-  const regularArticles = filteredArticles.filter(article => !article.featured);
-
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-6">
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-lg p-6 text-white">
+      <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-6 text-white">
         <h1 className="text-3xl font-bold mb-2">Health Tips & Articles</h1>
-        <p className="text-green-100">Expert advice and insights for better health and wellness</p>
+        <p className="text-purple-100">Stay informed with the latest health insights and wellness tips</p>
       </div>
 
-      {/* Search and Filters */}
+      {/* Search and Filter */}
       <Card>
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="Search articles, topics, or tags..."
+                placeholder="Search health topics..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -152,7 +150,7 @@ export const Blog = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -165,151 +163,49 @@ export const Blog = () => {
         </CardContent>
       </Card>
 
-      {/* Featured Articles */}
-      {featuredArticles.length > 0 && (
-        <div>
-          <div className="flex items-center space-x-2 mb-4">
-            <TrendingUp className="h-5 w-5 text-orange-600" />
-            <h2 className="text-xl font-semibold">Featured Articles</h2>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            {featuredArticles.map((article) => (
-              <Card key={article.id} className="hover:shadow-lg transition-shadow">
-                <div className="h-48 bg-gray-200 rounded-t-lg flex items-center justify-center">
-                  <BookOpen className="h-12 w-12 text-gray-400" />
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Badge variant="default">{article.category}</Badge>
-                    <Badge variant="outline">Featured</Badge>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2 hover:text-blue-600 cursor-pointer">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{article.excerpt}</p>
-                  
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <User className="h-4 w-4" />
-                        <span>{article.author}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="h-4 w-4" />
-                        <span>{article.readTime}</span>
-                      </div>
-                    </div>
-                    <span>{article.publishedAt}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <div className="flex items-center space-x-1">
-                        <Eye className="h-4 w-4" />
-                        <span>{article.views}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Heart className="h-4 w-4" />
-                        <span>{article.likes}</span>
-                      </div>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      Read More
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Regular Articles */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Latest Articles</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {regularArticles.map((article) => (
-            <Card key={article.id} className="hover:shadow-lg transition-shadow">
-              <div className="h-40 bg-gray-200 rounded-t-lg flex items-center justify-center">
-                <BookOpen className="h-8 w-8 text-gray-400" />
-              </div>
-              <CardContent className="p-4">
-                <Badge variant="outline" className="mb-2">{article.category}</Badge>
-                <h3 className="font-semibold mb-2 hover:text-blue-600 cursor-pointer line-clamp-2">
-                  {article.title}
-                </h3>
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2">{article.excerpt}</p>
-                
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
-                  <div className="flex items-center space-x-1">
-                    <User className="h-3 w-3" />
-                    <span>{article.author}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Clock className="h-3 w-3" />
-                    <span>{article.readTime}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3 text-xs text-gray-500">
-                    <div className="flex items-center space-x-1">
-                      <Eye className="h-3 w-3" />
-                      <span>{article.views}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Heart className="h-3 w-3" />
-                      <span>{article.likes}</span>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="sm">
-                    <Share2 className="h-3 w-3" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+      {/* Featured Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card>
+          <CardContent className="p-6 text-center">
+            <BookOpen className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+            <h3 className="text-2xl font-bold">{blogPosts.length}</h3>
+            <p className="text-gray-600">Health Articles</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6 text-center">
+            <Heart className="h-8 w-8 text-red-600 mx-auto mb-2" />
+            <h3 className="text-2xl font-bold">
+              {blogPosts.reduce((sum, post) => sum + post.likes, 0)}
+            </h3>
+            <p className="text-gray-600">Total Likes</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6 text-center">
+            <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
+            <h3 className="text-2xl font-bold">{categories.length - 1}</h3>
+            <p className="text-gray-600">Categories</p>
+          </CardContent>
+        </Card>
       </div>
 
-      {filteredArticles.length === 0 && (
+      {/* Blog Posts */}
+      <div className="space-y-6">
+        {filteredPosts.map((post) => (
+          <BlogPost key={post.id} post={post} />
+        ))}
+      </div>
+
+      {filteredPosts.length === 0 && (
         <Card>
           <CardContent className="p-12 text-center">
             <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No articles found</h3>
-            <p className="text-gray-600">Try adjusting your search criteria or browse all categories.</p>
+            <p className="text-gray-600">Try adjusting your search terms or browse all categories.</p>
           </CardContent>
         </Card>
       )}
-
-      {/* Health Tips Section */}
-      <Card className="bg-gradient-to-r from-blue-50 to-green-50 border-blue-200">
-        <CardHeader>
-          <CardTitle className="flex items-center space-x-2 text-blue-800">
-            <Heart className="h-5 w-5" />
-            <span>Quick Health Tips</span>
-          </CardTitle>
-          <CardDescription className="text-blue-600">
-            Simple daily habits for better health
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-4 bg-white rounded-lg border border-blue-100">
-              <h4 className="font-medium text-blue-800 mb-2">💧 Stay Hydrated</h4>
-              <p className="text-sm text-blue-700">Drink at least 8 glasses of water daily to maintain optimal health.</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg border border-green-100">
-              <h4 className="font-medium text-green-800 mb-2">🥗 Eat Colorfully</h4>
-              <p className="text-sm text-green-700">Include fruits and vegetables of different colors in your daily diet.</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg border border-purple-100">
-              <h4 className="font-medium text-purple-800 mb-2">😴 Quality Sleep</h4>
-              <p className="text-sm text-purple-700">Aim for 7-9 hours of quality sleep each night for better recovery.</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };

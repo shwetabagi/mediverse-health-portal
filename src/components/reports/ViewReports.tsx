@@ -4,8 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { FileText, Download, Eye, Search, Filter, Calendar } from 'lucide-react';
+import { FileText, Eye, Search, Filter, Calendar } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { DownloadableReport } from './DownloadableReport';
 
 export const ViewReports = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,7 +21,8 @@ export const ViewReports = () => {
       date: '2024-01-10',
       doctor: 'Dr. Sarah Johnson',
       status: 'Normal',
-      fileSize: '2.3 MB'
+      fileSize: '2.3 MB',
+      format: 'pdf' as const
     },
     {
       id: '2',
@@ -29,7 +31,8 @@ export const ViewReports = () => {
       date: '2024-01-08',
       doctor: 'Dr. Michael Chen',
       status: 'Reviewed',
-      fileSize: '5.1 MB'
+      fileSize: '5.1 MB',
+      format: 'jpg' as const
     },
     {
       id: '3',
@@ -38,7 +41,8 @@ export const ViewReports = () => {
       date: '2024-01-05',
       doctor: 'Dr. Sarah Johnson',
       status: 'Normal',
-      fileSize: '1.8 MB'
+      fileSize: '1.8 MB',
+      format: 'pdf' as const
     },
     {
       id: '4',
@@ -47,7 +51,8 @@ export const ViewReports = () => {
       date: '2024-01-03',
       doctor: 'Dr. James Wilson',
       status: 'Under Review',
-      fileSize: '12.4 MB'
+      fileSize: '12.4 MB',
+      format: 'png' as const
     },
     {
       id: '5',
@@ -56,7 +61,8 @@ export const ViewReports = () => {
       date: '2023-12-28',
       doctor: 'Dr. Emily Rodriguez',
       status: 'Normal',
-      fileSize: '3.2 MB'
+      fileSize: '3.2 MB',
+      format: 'xlsx' as const
     }
   ];
 
@@ -64,13 +70,6 @@ export const ViewReports = () => {
     toast({
       title: "Opening Report",
       description: `Opening ${reportName} in viewer...`
-    });
-  };
-
-  const handleDownloadReport = (reportName: string) => {
-    toast({
-      title: "Download Started",
-      description: `Downloading ${reportName}...`
     });
   };
 
@@ -176,14 +175,7 @@ export const ViewReports = () => {
                       <Eye className="h-4 w-4 mr-1" />
                       View
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDownloadReport(report.name)}
-                    >
-                      <Download className="h-4 w-4 mr-1" />
-                      Download
-                    </Button>
+                    <DownloadableReport report={report} />
                   </div>
                 </div>
               </div>

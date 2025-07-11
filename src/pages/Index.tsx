@@ -10,6 +10,8 @@ import { Chat } from '@/components/communication/Chat';
 import { Blog } from '@/components/blog/Blog';
 import { Pharmacy } from '@/components/pharmacy/Pharmacy';
 import { BookAppointment } from '@/components/appointments/BookAppointment';
+import { Profile } from '@/components/profile/Profile';
+import { VideoCall } from '@/components/video/VideoCall';
 import { Navbar } from '@/components/layout/Navbar';
 
 export interface User {
@@ -51,8 +53,10 @@ const Index = () => {
               <AdminDashboard user={user} />
             } 
           />
+          <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/doctors" element={<DoctorDirectory />} />
           <Route path="/chat" element={<Chat user={user} />} />
+          <Route path="/video-call" element={<VideoCall user={user} />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/book-appointment" element={<BookAppointment />} />
