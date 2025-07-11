@@ -26,19 +26,25 @@ export const BlogPost = ({ post }: BlogPostProps) => {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [isBookmarked, setIsBookmarked] = useState(false);
 
+  console.log('BlogPost rendered:', post.title, 'isExpanded:', isExpanded);
+
   const toggleReadMore = () => {
+    console.log('Toggle read more clicked, current state:', isExpanded);
     setIsExpanded(!isExpanded);
   };
 
   const handleLike = () => {
+    console.log('Like button clicked');
     setIsLiked(!isLiked);
   };
 
   const handleBookmark = () => {
+    console.log('Bookmark button clicked');
     setIsBookmarked(!isBookmarked);
   };
 
   const handleShare = () => {
+    console.log('Share button clicked');
     if (navigator.share) {
       navigator.share({
         title: post.title,

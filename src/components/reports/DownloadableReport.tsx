@@ -16,7 +16,10 @@ interface DownloadableReportProps {
 export const DownloadableReport = ({ report }: DownloadableReportProps) => {
   const { toast } = useToast();
 
+  console.log('DownloadableReport rendered for:', report.name);
+
   const generateMockFileContent = (format: string) => {
+    console.log('Generating mock file content for format:', format);
     switch (format) {
       case 'pdf':
         return `%PDF-1.4
@@ -64,11 +67,14 @@ startxref
   };
 
   const handleDownload = () => {
+    console.log('Download button clicked for:', report.name);
     try {
       const content = generateMockFileContent(report.format);
       const blob = new Blob([content], { 
         type: getMimeType(report.format) 
       });
+      
+      console.log('Blob created:', blob.size, 'bytes');
       
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -79,11 +85,14 @@ startxref
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
+      console.log('Download initiated successfully');
+
       toast({
         title: "Download Started",
         description: `${report.name} is being downloaded.`
       });
     } catch (error) {
+      console.error('Download failed:', error);
       toast({
         title: "Download Failed",
         description: "Unable to download the file. Please try again.",
