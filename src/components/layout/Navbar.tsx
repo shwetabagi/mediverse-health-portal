@@ -70,13 +70,20 @@ export const Navbar = ({ user, onLogout }: NavbarProps) => {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-2 text-sm text-gray-600">
+            <Link 
+              to="/profile"
+              className={`hidden md:flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/profile')
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+              }`}
+            >
               <User className="h-4 w-4" />
               <span>{user.name}</span>
               <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
                 {user.role.toUpperCase()}
               </span>
-            </div>
+            </Link>
             
             <Button
               onClick={onLogout}
@@ -122,13 +129,21 @@ export const Navbar = ({ user, onLogout }: NavbarProps) => {
                   </Link>
                 );
               })}
-              <div className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 border-t border-gray-200 mt-2 pt-4">
+              <Link
+                to="/profile"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium border-t border-gray-200 mt-2 pt-4 ${
+                  isActive('/profile')
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-600'
+                }`}
+              >
                 <User className="h-4 w-4" />
-                <span>{user.name}</span>
+                <span>Profile - {user.name}</span>
                 <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
                   {user.role.toUpperCase()}
                 </span>
-              </div>
+              </Link>
             </div>
           </div>
         )}

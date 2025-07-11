@@ -1,5 +1,5 @@
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,11 +18,14 @@ import {
   Heart,
   AlertCircle
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export const Pharmacy = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [cart, setCart] = useState<{[key: number]: number}>({});
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const products = [
     {
@@ -175,6 +178,38 @@ export const Pharmacy = () => {
     }, 0);
   };
 
+  const handleCheckout = () => {
+    if (getTotalItems() === 0) {
+      toast({
+        title: "Cart Empty",
+        description: "Please add items to your cart before checkout.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    console.log('Checkout initiated with cart:', cart);
+    
+    // Create payment items from cart
+    const paymentItems = Object.entries(cart).map(([productId, quantity]) => {
+      const product = products.find(p => p.id === parseInt(productId));
+      return {
+        name: product?.name || 'Unknown Product',
+        price: product?.price || 0,
+        quantity: quantity
+      };
+    });
+
+    // Navigate to payment gateway with cart data
+    navigate('/payment', { 
+      state: { 
+        amount: getTotalPrice(),
+        items: paymentItems,
+        cartData: cart
+      }
+    });
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Header */}
@@ -244,7 +279,7 @@ export const Pharmacy = () => {
                 <span className="text-lg font-bold text-green-800">
                   ${getTotalPrice().toFixed(2)}
                 </span>
-                <Button className="bg-green-600 hover:bg-green-700">
+                <Button onClick={handleCheckout} className="bg-green-600 hover:bg-green-700">
                   Checkout
                 </Button>
               </div>
